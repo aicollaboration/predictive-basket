@@ -1,0 +1,8 @@
+tag: latest
+
+predictivebasket:
+    replicaCount: 1
+    image: aicollaboration/predictive-basket
+
+imagePullSecrets:
+  - name: gitlab-auth

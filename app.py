@@ -3,7 +3,7 @@ import pandas as pd
 from flask import Flask, jsonify, request
 from flask_cors import CORS, cross_origin
 from mlxtend.preprocessing import TransactionEncoder
-from mlxtend.frequent_patterns import apriori, association_rules
+from mlxtend.frequent_patterns import apriori
 
 app = Flask(__name__)
 cors = CORS(app)
