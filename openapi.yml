@@ -1,0 +1,82 @@
+openapi: 3.1.0
+info:
+  title: Micro model service for apriori
+  version: 1.0.0
+  description: It will use apriori
+servers:
+  - url: http://localhost:5000
+paths:
+  /ping:
+    get:
+      operationId: ping
+      responses:
+        200:
+          description: It will return a pong when everything if correct
+  /info:
+    get:
+      operationId: info
+      responses:
+        200:
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Info"
+  /definition:
+    get:
+      operationId: definition
+      responses:
+        200:
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Definition"
+  /predict:
+    post:
+      operationId: predict
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Input"
+      responses:
+        200:
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Output"
+
+components:
+  schemas:
+    Info:
+      type: object
+      properties:
+        version:
+          type: string
+        project:
+          type: string
+        service:
+          type: string
+        language:
+          type: string
+        type:
+          type: string
+        date:
+          type: string
+          format: date-time
+    Definition:
+      type: object
+    Input:
+      type: array
+      items:
+        type: array
+        items:
+          type: string
+    Output:
+      type: object
+      properties:
+        answer:
+          type: string
