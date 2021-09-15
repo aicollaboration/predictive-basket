@@ -1,6 +1,7 @@
 import datetime
+from flask.wrappers import Response
 import pandas as pd
-from flask import Flask, jsonify, request
+from flask import Flask, json, jsonify, request, Response
 from flask_cors import CORS, cross_origin
 from mlxtend.preprocessing import TransactionEncoder
 from mlxtend.frequent_patterns import apriori
@@ -10,6 +11,15 @@ cors = CORS(app)
 
 API_V1 = '/api/1.0'
 
+####
+
+class InputValidator:
+    def validate(self, input):
+        return True if input else False
+
+input_validator = InputValidator()
+
+####
 
 @app.route('/', methods=['GET'])
 def index():
@@ -38,24 +48,21 @@ def info():
 @app.route(API_V1 + '/predict', methods=['POST', 'OPTIONS'])
 @cross_origin(origin='localhost')
 def predict():
-    data = request.json
-
-    dataset = [
-        ['Milk', 'Onion', 'Nutmeg', 'Kidney Beans', 'Eggs', 'Yogurt'],
-        ['Dill', 'Onion', 'Nutmeg', 'Kidney Beans', 'Eggs', 'Yogurt'],
-        ['Milk', 'Apple', 'Kidney Beans', 'Eggs'],
-        ['Milk', 'Unicorn', 'Corn', 'Kidney Beans', 'Yogurt'],
-        ['Corn', 'Onion', 'Onion', 'Kidney Beans', 'Ice cream', 'Eggs']
-    ]
-
-    te = TransactionEncoder()
-    te_ary = te.fit(dataset).transform(dataset)
-    df = pd.DataFrame(te_ary, columns=te.columns_)
+    dataset = request.json
+    
+    if not input_validator.validate(dataset):
+        return "error"
+    
+    transaction_encoder = TransactionEncoder()
+    data = transaction_encoder.fit(dataset).transform(dataset)
+    df = pd.DataFrame(data, columns=transaction_encoder.columns_)
 
     result = apriori(df, min_support=0.6, use_colnames=True)
     result['length'] = result['itemsets'].apply(lambda x: len(x))
+    
+    print(result)
 
-    return jsonify(result)
+    return result.to_json()
 
 
 if __name__ == "__main__":

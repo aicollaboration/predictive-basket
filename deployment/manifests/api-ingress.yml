@@ -1,7 +1,7 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: predictive-basket.aicollaboration.com
+  name: api-aicollaboration.net
   annotations:
     kubernetes.io/ingress.class: "nginx"
     cert-manager.io/cluster-issuer: letsencrypt
@@ -9,13 +9,14 @@ metadata:
 spec:
   tls:
   - hosts:
-    - predictive-basket.aicollaboration.com
-    secretName: tls-predictive-basket.aicollaboration.com
+    - aiproduct.io
+    secretName: tls-latest-aiproduct.io
   rules:
-  - host: predictive-basket.aicollaboration.com
-    http:
+   - host: <repo>.aiproduct.io
+     http:
       paths:
       - path: /
         backend:
-          serviceName: predictive-basket
+          serviceName: <repo>
           servicePort: 5000
+
