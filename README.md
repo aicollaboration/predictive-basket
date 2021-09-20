@@ -1,17 +1,52 @@
 # Predictive basket service
 
-## Pipelines
+## Install
 
-### Build
+    pip install -r requirements.txt
 
-- docker login -u "$DOCKER_USER" -p "$DOCKER_PASSWORD" docker.io
-- docker build --cache-from "aicollaboration/predictive-basket:latest" --tag "aicollaboration/predictive-basket:latest" --tag "aicollaboration/predictive-basket:add68f48eb6e990752b007b4abc272428376b669" .
-- docker push "aicollaboration/predictive-basket:add68f48eb6e990752b007b4abc272428376b669"
 
-### Deploy
+## Run
 
-- kubectl config set-cluster "$CLUSTER_NAME" --server="$URL" --insecure-skip-tls-verify=true
-- kubectl config set-credentials "$USER" --token="$TOKEN"
-- kubectl config set-context "$CONTEXT" --cluster="$CLUSTER_NAME" --user="$USER"
-- kubectl config use-context "$CONTEXT"
-- helm upgrade --install aicollaboration-service-predictive-basket charts -f charts/values.yaml --set tag=$CI_COMMIT_SHA
+    python app.py
+
+    curl --location --request POST 'http://localhost:5000/api/1.0/predict' \
+        --header 'Content-Type: application/json' \
+        --data-raw '[
+            [
+                "Milk",
+                "Onion",
+                "Nutmeg",
+                "Kidney Beans",
+                "Eggs",
+                "Yogurt"
+            ],
+            [
+                "Dill",
+                "Onion",
+                "Nutmeg",
+                "Kidney Beans",
+                "Eggs",
+                "Yogurt"
+            ],
+            [
+                "Milk",
+                "Apple",
+                "Kidney Beans",
+                "Eggs"
+            ],
+            [
+                "Milk",
+                "Unicorn",
+                "Corn",
+                "Kidney Beans",
+                "Yogurt"
+            ],
+            [
+                "Corn",
+                "Onion",
+                "Onion",
+                "Kidney Beans",
+                "Ice cream",
+                "Eggs"
+            ]
+        ]'

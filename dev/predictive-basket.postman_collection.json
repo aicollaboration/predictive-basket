@@ -1,0 +1,60 @@
+{
+	"info": {
+		"_postman_id": "7dae9fec-e16f-4f11-8f38-6be4bfcca408",
+		"name": "predictive-basket",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "info",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/api/1.0/info",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"1.0",
+						"info"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "predict",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    [\r\n        \"Milk\",\r\n        \"Onion\",\r\n        \"Nutmeg\",\r\n        \"Kidney Beans\",\r\n        \"Eggs\",\r\n        \"Yogurt\"\r\n    ],\r\n    [\r\n        \"Dill\",\r\n        \"Onion\",\r\n        \"Nutmeg\",\r\n        \"Kidney Beans\",\r\n        \"Eggs\",\r\n        \"Yogurt\"\r\n    ],\r\n    [\r\n        \"Milk\",\r\n        \"Apple\",\r\n        \"Kidney Beans\",\r\n        \"Eggs\"\r\n    ],\r\n    [\r\n        \"Milk\",\r\n        \"Unicorn\",\r\n        \"Corn\",\r\n        \"Kidney Beans\",\r\n        \"Yogurt\"\r\n    ],\r\n    [\r\n        \"Corn\",\r\n        \"Onion\",\r\n        \"Onion\",\r\n        \"Kidney Beans\",\r\n        \"Ice cream\",\r\n        \"Eggs\"\r\n    ]\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/1.0/predict",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"1.0",
+						"predict"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

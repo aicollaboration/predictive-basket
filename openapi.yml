@@ -5,7 +5,7 @@ info:
   description: It will use apriori
 servers:
   - url: http://localhost:5000
-  - url: https://predictive-basket.aicollaboration.com
+  - url: https://predictive-basket.aiproduct.io
 paths:
   /ping:
     get:
